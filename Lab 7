@@ -1,0 +1,121 @@
+import random
+import math
+
+#adds a and b, returns double if a and b are equal
+def sum_double(a,b):
+    if a != b:
+        return a + b
+    if a == b:
+        return (a+b)*2
+
+sum_1 = sum_double(2,5)
+sum_2 = sum_double(10,15)
+sum_3 = sum_double(50,50)
+print(sum_1)
+print(sum_2)
+print(sum_3)
+
+#rolls 2 6 sided dice, adds rolls together
+def roll_dice():
+    a=random.randint(1,6)
+    b=random.randint(1,6)
+    c=a + b
+    return c
+
+roll_1 = roll_dice()
+roll_2 = roll_dice()
+roll_3 = roll_dice()
+print(roll_1)
+print(roll_2)
+print(roll_3)
+
+#rolls 6 sided die n times, returns highest roll
+def max_dice(n):
+    roll = 0
+    for i in range(n):
+        dice = random.randint(1,6)
+        if dice > roll:
+            roll = dice
+    return roll
+
+max_1 = max_dice(1)
+max_2 = max_dice(2)
+max_3 = max_dice(3)
+print(max_1)
+print(max_2)
+print(max_3)
+
+#rolls s sided die, returns roll
+def roll_poly_dice(s):
+    dice = random.randint(1, s)
+    return dice
+
+roll_a = roll_poly_dice()
+roll_b = roll_poly_dice()
+roll_c = roll_poly_dice()
+print(roll_a)
+print(roll_b)
+print(roll_c)
+
+#rolls s sided die n times, returns highest roll
+def max_poly_roll(n, s):
+    roll = 0
+    for i in range(n):
+        dice = random.randint(1, s)
+        if dice > roll:
+            roll = dice
+    return roll
+    
+max_a = max_poly_roll(1,6)
+max_b = max_poly_roll(2,10)
+max_c = max_poly_roll(3,20)
+print(max_1)
+print(max_2)
+print(max_3)
+
+#part B
+def count_letter(str, letter):
+    letter_count = 0
+    for char in str:
+        if char == letter:
+            letter_count = letter_count + 1
+    return letter_count
+
+#compares two strings, returns number of characters in one with more
+def compare_counts(str1, str2, letter):
+    str_1_count = 0
+    str_2_count = 0
+    count_letter(str1, letter)
+    str_1_count = count_letter(str1, letter)
+    count_letter(str2, letter)
+    str_2_count = count_letter(str2, letter)
+    if str_1_count > str_2_count:
+        return str_1_count
+    if str_1_count < str_2_count:
+        return str_2_count
+    if str_1_count == str_2_count:
+        return "Same"
+
+print(compare_counts("caitlyn Trail" ,"banana", "i"))
+
+#gets user input from string
+def get_string():
+    str = input("please enter a word or phrase")
+    letter_count = 0
+    for char in str:
+        letter_count = letter_count + 1
+    while letter_count < 10:
+        str = input("please enter a word or phrase above 10 characters")
+        letter_count = 0
+        for char in str:
+            letter_count = letter_count + 1
+    return str.lower()
+
+
+
+string_1 =get_string()
+string_2=get_string()
+letter_input = input("please enter a letter").lower()
+
+results_count = compare_counts(string_1, string_2, letter_input)
+print(results_count)
