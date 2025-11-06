@@ -12,23 +12,14 @@ unique = {}
 unique_count={}
 unique_facts= {}
 num_letters = 0
-us_states_data = {
-    "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", 
-    "AR": "Arkansas", "CA": "California", "CO": "Colorado",
-    "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
-    "HI": "Hawaii", "ID": "Idaho",  "IL": "Illinois", "IN": "Indiana", "IA": "Iowa",
-    "KS": "Kansas", "KY": "Kentucky", "LA": "Louisiana", "ME": "Maine",
-    "MD": "Maryland",  "MA": "Massachusetts", "MI": "Michigan",
-    "MN": "Minnesota",  "MS": "Mississippi", "MO": "Missouri",
-    "MT": "Montana", "NE": "Nebraska",  "NV": "Nevada",
-    "NH": "New Hampshire", "NJ": "New Jersey", "NM": "New Mexico",
-    "NY": "New York", "NC": "North Carolina",  "ND": "North Dakota",
-    "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania",
-    "RI": "Rhode Island", "SC": "South Carolina",  "SD": "South Dakota",
-    "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
-    "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
-    "WI": "Wisconsin", "WY": "Wyoming"
-}
+about_me = {"height in inches" : 68, "first name": "Caitlyn",
+            "last name": "Trail", "hair color": "black", "eye color":"green",
+            "age":15, "gpa" : 3.8, "favorite candy": "snickers",  "brothers name": "Jonah",
+            "moms name" : "Lorine", "dads name" : "Josh", "shoe size us female": 12,
+            "favorite animal": "frog", "where I work": "zoo", "my grade": "sophomore",
+            "favorite subject": "science", "how i get to school": "bus", "where i am from":
+            "Oklahoma", "where i live":"Tucson", "favorite card game": "dutch blitz",}
+
 character_number = 0
 
 #functions
@@ -46,10 +37,10 @@ for item in words:
     unique_count[item] = words.count(item)
 print(unique_count)
 
-for key in us_states_data.keys():
-    for char in key:
-        character_number += 1
-    if character_number > 12:
-            us_states_data.pop(key)
-    character_number = 0
-print(us_states_data)
+
+for key in about_me.keys():
+    print(key)
+    print(about_me[key])
+
+question = input("What would you like to know?")
+print(about_me[question])
