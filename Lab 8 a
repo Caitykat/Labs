@@ -1,7 +1,7 @@
 #Caitlyn Trail
 #11/4/25
 #lab_dictionary_a
-#what does it do
+#Different labs for class
 
 #imports
 
@@ -19,13 +19,49 @@ about_me = {"height in inches" : 68, "first name": "Caitlyn",
             "favorite animal": "frog", "where I work": "zoo", "my grade": "sophomore",
             "favorite subject": "science", "how i get to school": "bus", "where i am from":
             "Oklahoma", "where i live":"Tucson", "favorite card game": "dutch blitz",}
-
+inventory = {"loafs of bread": 4, "cupcakes":5, "cakes":3, "macarons": 6, "cinnamon rolls": 3}
 character_number = 0
 
 #functions
+def view_inventory():
+    for key in inventory.keys():
+        print(f"There are {inventory[key]} {key} in the store at this time.")
+
+def add_new_item(new_key, new_value):
+    inventory[new_key] = new_value
+
+def add_to_stock(key_to_add_to, added_stock_num):
+    inventory[key_to_add_to] += added_stock_num
+
+def remove_stock(key_to_remove_from, removed_stock_num):
+    if inventory[key_to_remove_from] >= removed_stock_num:
+        inventory[key_to_remove_from] -= removed_stock_num
+    if inventory[key_to_remove_from] < removed_stock_num:
+        inventory[key_to_remove_from] = 0
+    
+def item_quantity(key_to_get):
+    print(inventory.get(key_to_get, 0))
+
+def num_of_items():
+    num_items = 0
+    for key in inventory.keys():
+        num_items += 1
+    print(num_items)
+
+def stock_gone(key):
+    inventory[key] = 0
+
+def most_stock():
+    highest = 0
+    biggest = 0
+    for key in inventory.keys():
+        
+        
+
 
 #code
 #counts number of letters
+#Lab 2
 for item in words:
     for char in item:
         num_letters += 1
@@ -37,10 +73,26 @@ for item in words:
     unique_count[item] = words.count(item)
 print(unique_count)
 
-
+#Lab 1
 for key in about_me.keys():
     print(key)
     print(about_me[key])
 
 question = input("What would you like to know?")
 print(about_me[question])
+
+view_inventory()
+add_new_item("cookies", 6)
+view_inventory()
+add_new_item("cheesecake", 2)
+add_to_stock("cookies", 15)
+view_inventory()
+remove_stock("cookies", 5)
+view_inventory()
+item_quantity("cookies")
+item_quantity("rolls")
+num_of_items()
+stock_gone("cookies")
+view_inventory()
+most_stock()
+
