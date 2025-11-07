@@ -52,9 +52,13 @@ def stock_gone(key):
     inventory[key] = 0
 
 def most_stock():
-    highest = 0
-    biggest = 0
-    for key in inventory.keys():
+    max_key = None
+    max_value = 0
+    for key, value in inventory.items():
+       if value > max_value:
+           max_value = value
+           max_key = key
+    print(max_key)
         
         
 
