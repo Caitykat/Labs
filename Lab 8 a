@@ -1,7 +1,3 @@
-#Caitlyn Trail
-#11/4/25
-#lab_dictionary_a
-#Different labs for class
 
 #imports
 
@@ -21,6 +17,11 @@ about_me = {"height in inches" : 68, "first name": "Caitlyn",
             "Oklahoma", "where i live":"Tucson", "favorite card game": "dutch blitz",}
 inventory = {"loafs of bread": 4, "cupcakes":5, "cakes":3, "macarons": 6, "cinnamon rolls": 3}
 character_number = 0
+tickets = {"T101" :{"name" : "Ava", "status" : "open",  "priority": 2}, "T102" :
+           {"name" : "Mason", "status" : "open",  "priority": 1}, "T103" : 
+           {"name" : "Noah", "status" : "closed",  "priority": 3}}
+
+
 
 #functions
 def view_inventory():
@@ -59,6 +60,13 @@ def most_stock():
            max_value = value
            max_key = key
     print(max_key)
+def add_ticket(newticketID, name, status=open, priority):
+    if ticket.get(key, "none") == key:
+        print("Ticket ID exists")
+    else:
+        tickets[newticketID] = {"name": name, "status": status, "priority" : priority} 
+
+    
         
         
 
@@ -99,4 +107,5 @@ num_of_items()
 stock_gone("cookies")
 view_inventory()
 most_stock()
-
+add_ticket(T102, Olivia, open, 2)
+add_ticket(T105, Olivia, open, 1)
