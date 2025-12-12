@@ -1,0 +1,56 @@
+#Caitlyn Trail
+#December 12th 2025
+#shopping_app
+#The audience is people who have trouble organizing. It is one 
+#app that stores your shopping list in one place so its easy to access
+#and it is always with you.
+
+#Imports
+from guizero import App , Box, PushButton, Drawing, Combo, ButtonGroup, TextBox, ListBox, Text
+
+#Functions
+
+def add_list_item():
+    pass
+
+def clear_list_item():
+    pass
+
+def remove_list_item():
+    pass
+
+#Variables
+
+#Actual app set up
+my_app = App(width = 800, height = 800, layout = "grid"
+             ,title = "Shopping Lists",)
+
+#Box for buttons to go in 
+menu_box = Box(my_app, height = 50, width = "fill", 
+               layout = "grid", border = 2, grid = [0,0])
+
+#Text box to input list items
+my_type_box = TextBox(my_app, width = 60, height = 54,grid = [0,1,1, 5],
+                  multiline = True)
+
+#Displays your list you are currently editing
+list_display = ListBox(my_app, width = 400, height = 700,
+                       grid = [1,1,1, 5])
+
+#Button to add an item to list
+add_list = PushButton(menu_box, grid = [0,0], text = "Add List item",
+                      command = add_list_item )
+
+#Button to remove an item from a list
+remove_list = PushButton(menu_box, grid = [1,0], text = "Remove List Item",
+                         command = remove_list_item)
+
+clear_list = PushButton(menu_box, grid = [2,0],text = "Clear List",
+                        command= clear_list_item)
+
+#List, stores grocery list
+list_items_grocery = []
+
+#Code
+
+my_app.display()
