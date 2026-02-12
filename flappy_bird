@@ -1,0 +1,52 @@
+import pgzrun
+from pgzero import rect
+import random
+
+#variation
+WIDTH = 600
+HIEGHT = 800
+
+#acttors
+bird = Actor("bat_fly")
+
+#initiation
+bird.x = 200
+bird.y = 300
+bird.y_speed = 100
+
+lives = 3
+
+#pipe
+top_pipe = rect((0,400), (50,200))
+bottom_pipe = rect((400,350),(50,600))
+top_pipe.x -= 5
+bottom_pipe.y += 5
+
+def update(dt):
+    global lives
+    if bird.y > HEIGHT:
+        lives -= 1
+        reset()
+    bird.y_speed += 100*dt
+    bird.y += bird.y_speed
+
+def draw():
+    screen.fill("blue")
+    bird.draw()
+    screen.draw.filled_rect(top_pipe,"green")
+
+def on_key_down():
+    bird.y_sped = -100
+
+def reset():
+    bird.y = HIEGHT/2
+    bird.y_speed = 0
+
+def reset_pipes():
+    new_y = random.randint(-900,-300)
+    top_pipe.y = new_y
+    bottom_pipe - new_y + 1100
+    top_pipe.x = 700
+    bottom_pipe.x = 700
+
+pgzrun.go()
