@@ -1,0 +1,103 @@
+# imports
+import pgzrun 
+import random as r
+from pgzero import rect 
+
+#variables
+WIDTH = 800
+HEIGHT = 800 
+
+mushrooms_red = []
+mushrooms_brown = []
+points = 0
+timer = 5
+
+#actors
+#all of these pictures are in the public domain
+#Kenney Vleugels (www.kenney.nl) made mushroom red,
+#mushroom brown, weeds,and basket.
+#all zombie art comes from GameArt2D.com
+#player character
+zombie = Actor("idle1")
+#setting where it starts at
+zombie.x = 150
+zombie.y= 550
+#walking left sprite
+zombie_left = Actor("zombie_walk_left")
+#setting the y, x will be set equal to the player in update
+zombie_left.y = 550
+#walking right sprite
+zombie_right = Actor("zombie_walk_right")
+#setting the y, x will be set equal to the player in update
+zombie_right.y = 550
+#collectables
+mushroom_red = Actor("mushroomred")
+mushroom_brown = Actor("mushroombrown")
+weeds = Actor("plant")
+#where you place the collectables
+basket = Actor("basket")
+basket.x = 50
+basket.y = 580
+#grass
+grass = Rect((0, 600), (800, 400))
+
+def update():
+    global points, timer
+    timer -= 1/60
+    points_lost = 0
+    grow_mushroom("mushroom_red")
+    grow_mushroom("mushroom_brown")
+    zombie_left.x = zombie.x
+    zombie_right.x = zombie.x
+    if keyboard.right and zombie.x < 755:
+        zombie.x += 5
+    if keyboard.left and zombie.x > 45:
+        zombie.x -= 5
+    if timer < 0:
+        timer = 5
+        for mushroom_red in mushrooms_red:
+            points_lost += 1
+            mushrooms_red.remove(mushroom_red)
+        for mushroom_brown in mushrooms_brown:
+            points_lost += 1
+            mushrooms_brown.remove(mushroom_brown)
+    points -= points_lost
+        
+
+def draw():
+    screen.fill("light blue")
+    screen.draw.filled_rect(grass,'dark green')
+    basket.draw()
+    for mushroom_red in mushrooms_red:
+        mushroom_red.draw()
+    for mushroom_brown in mushrooms_brown:
+        mushroom_brown.draw()
+    if keyboard.left:
+        zombie_left.draw()
+    elif keyboard.right:
+        zombie_right.draw()
+    else:
+        zombie.draw()
+    screen.draw.text("Points: " + str(points), (720,10))
+
+def grow_mushroom(mushroom_list):
+    for i in range(2):
+        if mushroom_list == "mushroom_red" and len(mushrooms_red) <= 2:
+            new_red = Actor("mushroomred")
+            new_red.x = r.randint(200,750)
+            new_red.y = 600
+            mushrooms_red.append(new_red)
+        if mushroom_list == "mushroom_brown" and len(mushrooms_brown) <= 2:
+            new_brown = Actor("mushroombrown")
+            new_brown.x = r.randint(200,750)
+            new_brown.y = 600
+            mushrooms_brown.append(new_brown)
+
+
+
+
+
+
+
+
+pgzrun.go()
