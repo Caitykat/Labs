@@ -1,90 +1,160 @@
+#imports
 import guizero, random as r
 from guizero import App, Text, PushButton, TextBox, Box
 
+#creates app
 my_app = App(title = "Spin the Wheel Game", width = 800, height = 800,
               layout = "grid", bg = "pink")
 
-#Keeps track of wins and losses
+#Keeps track of wins
 wins = []
+
+#keeps track of losses
 losses = []
+
+#Game mode variable, tells program what game mode is currently selected
+# 0 means no game mode currently selected
 game_mode = 0
 
 #Game mode select even or odd
 def even_or_odd_select():
+    #global variables
     global game_mode, wins, losses
+
+    #gets rid of the previous wins and losses from high or low
     wins.clear()
     losses.clear()
+
+    #Updates the display to show there is no winning or losing numbers
     winning_numbers.value = ""
     losing_numbers.value = ""
+    #displays what game mode 
+
     select_game.value = "Game Mode: Even or Odd"
+    #sets game mode
     game_mode = "even"
 
-
+#Game mode select high or low
 def high_or_low_select():
+    #global variables
     global game_mode, wins, losses
+
+    #gets rid of the previous wins and losses from even or odd
     wins.clear()
     losses.clear()
+
+    #updates the display to show there is no winning or losing numbers
     winning_numbers.value = ""
     losing_numbers.value = ""
+
+    #displays what game mode
     select_game.value = "Game Mode: High or Low"
+    #sets game mode
     game_mode = "high"
 
+#Runs the entire game, calculates wins and losses
 def play_game():
+    #global variables
     global game_mode, wins, losses
+    #chooses what number the "wheel" lands on
     number = r.randint(0,36)
+    #gets input from the user based on what they type in
     guess = int(enter_guess.value)
-    if game_mode == "high":
-        if number == 0:
-            result_display.value = "you lose, roulette landed on 0"
-        if number > 18 and guess > 18:
-            result_display.value = "you win! The roulette was higher than 18"
-        if number > 18 and guess <= 18:
-            result_display.value = "you lose, the roulette was higher than 18"
-        if number <= 18 and guess <= 18 and number != 0:
-            result_display.value = "you win! " "The roulette was less than or equal to 18"
-        if number <= 18 and guess > 18 and number != 0:
-            result_display.value = "you lose, the roulette was less than or equal to 18"
-    if game_mode == "even":
-        if number == 0:
-            result_display.value = "you lose, roulette landed on 0"
-        if number % 2 == 0 and guess % 2 == 0:
-            result_display.value ="you win! The roulette was even"
-        if number % 2 == 0 and guess % 2 != 0:
-            result_display.value ="you lose, The roulette was even"
-        if number % 2 != 0 and guess % 2 != 0:
-            result_display.value ="you win! The roulette was odd"
-        if number % 2 != 0 and guess % 2 == 0:
-            result_display.value = "you lose, The roulette was odd"
-    on_win(wins, losses)
 
-def on_win(wins_list, losses_list):
+    #if the game mode is equal to high or low it calculates win or loss
+    if game_mode == "high":
+        #auto loss if it lands on zero
+        if number == 0:
+            #sets display
+            result_display.value = "you lose, roulette landed on 0"
+        #win if the number was higher than 18 and so way players input
+        if number > 18 and guess > 18:
+            #sets display
+            result_display.value = "you win! The roulette was higher than 18"
+        #loss if roulette was higher than 18 but players wasnt
+        if number > 18 and guess <= 18:
+            #sets display
+            result_display.value = "you lose, the roulette was higher than 18"
+        #win if both under 18
+        if number <= 18 and guess <= 18 and number != 0:
+            #sets display
+            result_display.value = "you win! " "The roulette was less than or equal to 18"
+        #loss if under 18 and players input was greater than 18
+        if number <= 18 and guess > 18 and number != 0:
+            #sets display
+            result_display.value = "you lose, the roulette was less than or equal to 18"
+
+    #If the game mode is equal to even or oddit calculates win or loss
+    if game_mode == "even":
+        #Auto loss on 0
+        if number == 0:
+            #sets display
+            result_display.value = "you lose, roulette landed on 0"
+        #If both numbers even win
+        if number % 2 == 0 and guess % 2 == 0:
+            #sets display
+            result_display.value ="you win! The roulette was even"
+        #if number even and player input odd loss
+        if number % 2 == 0 and guess % 2 != 0:
+            #sets display
+            result_display.value ="you lose, The roulette was even"
+        #If numbers both not even loss
+        if number % 2 != 0 and guess % 2 != 0:
+            #sets display
+            result_display.value ="you win! The roulette was odd"
+        #If number odd and player input even loss
+        if number % 2 != 0 and guess % 2 == 0:
+            #sets display
+            result_display.value = "you lose, The roulette was odd"
+
+    #calls on finish to update the lists and display winning/losing numbers
+    on_finish(wins, losses)
+
+#Updates the list and displays winning and losing numbers, takes lists as parameters
+def on_finish(wins_list, losses_list):
+    #Sets the display lists empty so they can be redone
     won_list = []
     loss_list = []
 
+    #if the value is not already in the list it adds it based on the display result
     if enter_guess.value not in wins_list:
+        #checks display
         if result_display.value == "you win! The roulette was even" or result_display.value == "you win! The roulette was odd":
+            #appends to display
             wins_list.append(enter_guess.value)
+        #checks display
         if result_display.value == "you win! The roulette was higher than 18" or result_display.value == "you win! The roulette was less than or equal to 18":
+            #appends to display
             wins_list.append(enter_guess.value)
 
+    #if the value is not already in the list it adds it based on the display result
     if enter_guess.value not in losses_list:
+        #checks display
         if result_display.value == "you lose, The roulette was even" or result_display.value == "you lose, The roulette was odd":
+            #appends to display
             losses_list.append(enter_guess.value)
+        #checkw display
         if result_display.value == "you lose, the roulette was higher than 18" or result_display.value == "you lose, the roulette was less than or equal to 18":
+            #appends to display
             losses_list.append(enter_guess.value)
+        #checks display
         if result_display.value == "you lose, roulette landed on 0":
+            #appends to display
             losses_list.append(enter_guess.value)
 
+    #iterates through list for each item
     for item in wins_list:
+        #appends item to display list
         won_list.append(item)
+    #updates display
     winning_numbers.value = won_list
+
+    #iterates through list for each item
     for item in losses_list:
+        #appends item to display list
         loss_list.append(item)
+    #updates display
     losing_numbers.value = loss_list
-
-    
-        
-
 
 #UI elements
 
@@ -92,7 +162,7 @@ def on_win(wins_list, losses_list):
 title = Text(my_app, text= "Test Your Luck!", size = 50, 
              color = "red", grid = [1,0])
 
-#Select a game
+#Select a game text
 select_game = Text(my_app, text= "Select a game!", 
                       size = 50, color = "red", 
                       grid = [1,1])
@@ -106,45 +176,52 @@ enter_guess_text = Text(my_app, text= "Enter your guess (0-36)!",
 button_box = Box(my_app, width= 500, height = 100,
                  grid = [1,3], layout = "grid")
 
-#Plays even or odd game
+#Takes the even or odd command and sets game mode to even or odd, runs even or odd fuction
 even_or_odd = PushButton(button_box, grid = [0,0],
                          width = 10, height = 5, 
                           text= "Even or Odd",
                            command = even_or_odd_select )
 
-#plays high or low game
+#Takes the high or low command and sets game mode to high or low, runds high or low function
 high_or_low = PushButton(button_box, grid = [1,0],
                          width = 10, height = 5, 
                           text= "High or Low",
                            command = high_or_low_select )
 
-#Where players enter their guess
+#Where players enter their guess, takes player input
 enter_guess = TextBox(my_app, text = "Enter guess here",
                     width = 50, grid = [1,4])
 
+#Takes the play_game command, calculates winner by running play game function
 submit = PushButton(my_app, grid = [1,5],
                          width = 10, height = 5, 
                           text= "Submit",
                            command = play_game )
 
+#Displays the results of the game
 result_display = Text(my_app, text= "This is where results go", 
                       size = 25, color = "red", 
                       grid = [1,6])
 
+#winning numbers text
 winning_numbers_text = Text(my_app, text= "Numbers that have won:", 
                       size = 50, color = "red", 
                       grid = [1,7])
 
+#Winning numbers display, shows what numbers the player has chosen that have won
 winning_numbers = Text(my_app, text= "", 
                       size = 50, color = "red", 
                       grid = [1,8])
 
+#losing numbers text
 losing_numbers_text = Text(my_app, text= "Numbers that have lost:", 
                       size = 50, color = "red", 
                       grid = [1,9])
 
+#Losing numbers display, shows what numbers the player has choser that have lost
 losing_numbers = Text(my_app, text= "", 
                       size = 50, color = "red", 
                       grid = [1,10]) 
 
+#Runs the app! Have fun
 my_app.display()
